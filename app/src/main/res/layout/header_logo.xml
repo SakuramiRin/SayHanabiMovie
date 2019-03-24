@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="150dp"
+    android:layout_height="@dimen/materialviewpager_logoHeight">
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="#66000000"
+        android:clickable="false"
+        app:qmui_border_width="1px"
+        app:qmui_corner_radius="10dp"
+        />
+
+    <TextView
+        android:id="@+id/logo_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="花火动漫"
+        android:layout_gravity="center"
+        android:textSize="30sp"
+        android:textColor="#FFFFFF"
+        android:shadowRadius="3.0"
+        android:textStyle="bold"
+        />
+</FrameLayout>
+
