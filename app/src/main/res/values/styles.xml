@@ -17,7 +17,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="AppBaseTheme" parent="@style/Theme.AppCompat.Light.NoActionBar" />
+    <style name="AppBaseTheme" parent="QMUI.Compat" />
 
     <style name="AppTheme" parent="AppBaseTheme">
 
@@ -54,4 +54,7 @@
         <item name="color">@color/drawerArrowColor</item>
     </style>
 
+    <style name="popupTheme" parent="@style/Theme.AppCompat.Light" >
+        <item name="android:textColor">@color/qmui_config_color_75_pure_black</item>
+    </style>
 </resources>

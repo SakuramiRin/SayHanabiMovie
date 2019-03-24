@@ -8,15 +8,12 @@
 
 package com.example.sayhanabimovie;
 
-import android.os.Build;
 import android.os.Bundle;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 
 import com.google.android.material.navigation.NavigationView;
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
-import com.qmuiteam.qmui.widget.QMUITabSegment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,10 +24,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 /**
  * @author SakuramiRin
@@ -43,12 +40,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_main);
+        setContentView(R.layout.activity_main);
 
         //隐藏系统标题
         setTitle("");
-
-//        QMUIStatusBarHelper.translucent(getWindow());
 
         initMaterDesignHome();
 
@@ -131,7 +126,19 @@ public class MainActivity extends AppCompatActivity
         //设置actionBar
         MaterialViewPager materialViewPager = findViewById(R.id.materialViewPager);
         Toolbar toolbar = materialViewPager.getToolbar();
+//        toolbar.setNavigationIcon(R.drawable.ic_search_black_24dp);
         setSupportActionBar(toolbar);
+
+        toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        toolbar.setPopupTheme(R.style.popupTheme);
 
         //
         materialViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
@@ -139,7 +146,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public Fragment getItem(int position) {
                 switch (position) {
-                    case 1:
+                    case 4:
                         return new Fragment();
                     default:
                         return new RecyclerViewFragment();
