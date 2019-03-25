@@ -29,7 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class RecyclerViewFragment extends Fragment {
 
-    private static final boolean GRID_LAYOUT = false;
+    private static final boolean GRID_LAYOUT = true;
     private static final int ITEM_COUNT = 10;
 
     RecyclerView mRecyclerView;
@@ -50,6 +50,7 @@ public class RecyclerViewFragment extends Fragment {
 
         final List<Object> items = new ArrayList<>();
 
+        //new了10个空数据
         for (int i = 0; i < ITEM_COUNT; ++i) {
             items.add(new Object());
         }

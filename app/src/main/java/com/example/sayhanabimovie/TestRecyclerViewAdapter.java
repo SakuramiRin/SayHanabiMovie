@@ -11,7 +11,11 @@ package com.example.sayhanabimovie;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
+import java.io.File;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +30,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     static final int TYPE_HEADER = 0;
     static final int TYPE_CELL = 1;
 
+    //构造方法，应该是传进来数据
     public TestRecyclerViewAdapter(List<Object> contents) {
         this.contents = contents;
     }
@@ -49,13 +54,20 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
 
+        //如果是第一个，就大的CardView
         switch (viewType) {
             case TYPE_HEADER: {
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.list_item_card_big, parent, false);
+                ImageView imageView = view.findViewById(R.id.card_imageView);
+
+                int resource = R.drawable.bg1;
+                Glide.with(view).load(resource).into(imageView);
                 return new RecyclerView.ViewHolder(view) {
                 };
             }
+
+            //如果是其他，小的cardView
             case TYPE_CELL: {
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.list_item_card_small, parent, false);
@@ -69,6 +81,8 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+        //空白数据
         switch (getItemViewType(position)) {
             case TYPE_HEADER:
                 break;
