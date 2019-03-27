@@ -10,6 +10,7 @@ package com.example.sayhanabimovie;
 
 import android.os.Bundle;
 
+import com.example.sayhanabimovie.presenter.GetAnimeDetailPresenter;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            new GetAnimeDetailPresenter().getAnimeDetail();
         }
 
         return super.onOptionsItemSelected(item);
