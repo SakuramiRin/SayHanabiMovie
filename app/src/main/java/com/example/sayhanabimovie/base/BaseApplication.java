@@ -19,10 +19,22 @@ import com.example.sayhanabimovie.manager.UpgradeManager;
  */
 public class BaseApplication extends Application {
 
+    private static Application sApplication;
+    private static AppComponent sAppComponent;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        Context context = getApplicationContext();
+        sApplication = this;
+        sAppComponent = DaggerAppComponent.creat();
 //        UpgradeManager.getUpgradeManager(context).check();
+    }
+
+    public static Application getApplication() {
+        return sApplication;
+    }
+
+    public static Context getContext() {
+        return sApplication.getApplicationContext();
     }
 }
