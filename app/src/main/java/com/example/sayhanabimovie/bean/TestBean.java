@@ -6,20 +6,12 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.example.sayhanabimovie.model.interfacemodel;
-
-import com.example.sayhanabimovie.bean.AnimesDetailBean;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.http.GET;
+package com.example.sayhanabimovie.bean;
 
 /**
  * @author SakuramiRin
- * @date 2019-03-27 22:54
+ * @date 2019-03-30 14:05
  */
-public interface IGetAnimeDetail {
-    @GET("animes/video/6/resource")
-    Call<List<AnimesDetailBean>> getAnimeDetailAPI();
+public class TestBean {
+    //返回数据 测试用
 }

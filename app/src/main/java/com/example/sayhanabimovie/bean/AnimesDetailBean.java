@@ -17,7 +17,7 @@ import java.io.Serializable;
  * @date 2019-03-27 22:37
  */
 
-public class AnimeDetailBean implements Serializable {
+public class AnimesDetailBean implements Serializable {
 
     private int id;
 

@@ -6,13 +6,12 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.example.sayhanabimovie.component;
+package com.example.sayhanabimovie.bean;
 
 /**
  * @author SakuramiRin
- * @date 2019-03-28 23:11
+ * @date 2019-03-30 15:43
  */
+public class AnimesTimeLineBean {
 
-@MainSingleton
-public class MainActivityCompenent {
 }

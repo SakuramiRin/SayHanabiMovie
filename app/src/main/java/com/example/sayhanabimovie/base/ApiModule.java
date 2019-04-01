@@ -14,10 +14,6 @@ import android.text.TextUtils;
 import java.io.File;
 import java.io.IOException;
 
-import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -33,19 +29,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @author SakuramiRin
  * @date 2019-03-28 22:50
  */
-@Module
-@Singleton
 public class ApiModule {
 
-    @Provides
-    private HttpUrl providesHttpUrl() {
+    private HttpUrl httpUrl() {
         return new HttpUrl.Builder()
                 .scheme("http")
                 .host("umarutv.misakas.com/")
                 .build();
     }
 
-    @Provides
     public Interceptor providesInterceptor() {
         return new Interceptor() {
             @Override
@@ -65,13 +57,12 @@ public class ApiModule {
             }
         };
     }
-    @Provides
+
     public Cache providesCache(Context context) { File httpCacheFile = context.getExternalCacheDir().getAbsoluteFile();
         return new Cache(httpCacheFile, 1024 * 10 * 1024);
     }
 
-    @Provides
-    @Singleton
+
     public OkHttpClient providesOkHttpClient(Interceptor interceptor, Cache cache) {
         return new OkHttpClient.Builder()
                 .cache(cache)
@@ -80,8 +71,7 @@ public class ApiModule {
                 .build();
     }
 
-    @Provides
-    @Singleton
+
     public Retrofit providesRetrofit(OkHttpClient client, HttpUrl httpUrl) {
         return new Retrofit.Builder()
                 .baseUrl(httpUrl)

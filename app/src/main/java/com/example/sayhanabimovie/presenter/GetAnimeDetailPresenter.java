@@ -10,7 +10,7 @@ package com.example.sayhanabimovie.presenter;
 
 import android.util.Log;
 
-import com.example.sayhanabimovie.bean.AnimeDetailBean;
+import com.example.sayhanabimovie.bean.AnimesDetailBean;
 import com.example.sayhanabimovie.model.GetAnimeDetailModel;
 import com.example.sayhanabimovie.model.interfacemodel.IGetAnimeDetail;
 import com.example.sayhanabimovie.presenter.interfacepresenter.IGetAnimeDetailPresenter;
@@ -38,18 +38,18 @@ public class GetAnimeDetailPresenter implements IGetAnimeDetailPresenter {
 
     @Override
     public void getAnimeDetail() {
-        mGetAnimeDetail.getAnimeDetailAPI().enqueue(new Callback<List<AnimeDetailBean>>() {
+        mGetAnimeDetail.getAnimeDetailAPI().enqueue(new Callback<List<AnimesDetailBean>>() {
             @Override
-            public void onResponse(Call<List<AnimeDetailBean>> call, Response<List<AnimeDetailBean>> response) {
+            public void onResponse(Call<List<AnimesDetailBean>> call, Response<List<AnimesDetailBean>> response) {
                 if (response.isSuccessful()) {
                     Log.d(TAG, "onResponse: "+response.body());
-                    List<AnimeDetailBean> animeDetailBeans = response.body();
+                    List<AnimesDetailBean> animesDetailBeans = response.body();
                     Log.d(TAG, "onResponse: ");
                 }
             }
 
             @Override
-            public void onFailure(Call<List<AnimeDetailBean>> call, Throwable t) {
+            public void onFailure(Call<List<AnimesDetailBean>> call, Throwable t) {
                 Log.e(TAG, "onFailure: "+t.getMessage() );
             }
         });
