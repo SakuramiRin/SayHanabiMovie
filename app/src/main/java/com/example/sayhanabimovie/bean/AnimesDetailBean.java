@@ -96,4 +96,20 @@ public class AnimesDetailBean implements Serializable {
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    @Override
+    public String toString() {
+        return "AnimesDetailBean{" +
+                "id=" + id +
+                ", videoId=" + videoId +
+                ", resource='" + resource + '\'' +
+                ", type='" + type + '\'' +
+                ", resolution=" + resolution +
+                ", ranking=" + ranking +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                '}';
+    }
+
+
 }

@@ -11,9 +11,19 @@ package com.example.sayhanabimovie.base;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.example.sayhanabimovie.api.Api;
+import com.example.sayhanabimovie.bean.AllAnimesBean;
+import com.example.sayhanabimovie.bean.AnimesDetailBean;
+import com.example.sayhanabimovie.bean.AnimesInfoBean;
+import com.example.sayhanabimovie.bean.AnimesResourceBean;
+import com.example.sayhanabimovie.bean.TestBean;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
+import androidx.annotation.NonNull;
+import io.reactivex.Observable;
 import okhttp3.Cache;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -29,19 +39,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @author SakuramiRin
  * @date 2019-03-28 22:50
  */
-public class ApiModule {
+public class ApiModule implements Api {
 
     private HttpUrl httpUrl() {
         return new HttpUrl.Builder()
                 .scheme("http")
-                .host("umarutv.misakas.com/")
+                .host("umarutv.misakas.com")
                 .build();
     }
 
     public Interceptor providesInterceptor() {
         return new Interceptor() {
+            @NonNull
             @Override
-            public Response intercept(Chain chain) throws IOException {
+            public Response intercept(@NonNull Chain chain) throws IOException {
                 Request request = chain.request();
                 Response response = chain.proceed(request);
 
@@ -63,9 +74,9 @@ public class ApiModule {
     }
 
 
-    public OkHttpClient providesOkHttpClient(Interceptor interceptor, Cache cache) {
+    public OkHttpClient providesOkHttpClient(Interceptor interceptor) {
         return new OkHttpClient.Builder()
-                .cache(cache)
+//                .cache(cache)
                 .addInterceptor(interceptor)
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build();
@@ -79,5 +90,59 @@ public class ApiModule {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
+    }
+
+    public Retrofit baseProvidesRetrofit() {
+        return providesRetrofit(providesOkHttpClient(providesInterceptor()), httpUrl());
+    }
+
+    @Override
+    public Observable<List<AnimesDetailBean>> getAnimeDetailAPI() {
+        return baseProvidesRetrofit().create(Api.class).getAnimeDetailAPI();
+    }
+
+    @Override
+    public Observable<TestBean> loginApi(String email, String password) {
+        return baseProvidesRetrofit().create(Api.class).loginApi(email, password);
+    }
+
+    @Override
+    public Observable<TestBean> registerApi(String name, String email, String password) {
+        return baseProvidesRetrofit().create(Api.class).registerApi(name, email, password);
+    }
+
+    @Override
+    public Observable<AnimesInfoBean> animesInfoApi(String id, String withVideo) {
+        return baseProvidesRetrofit().create(Api.class).animesInfoApi(id, withVideo);
+    }
+
+    @Override
+    public Observable<AnimesDetailBean> animesDetailApi(String with) {
+        return baseProvidesRetrofit().create(Api.class).animesDetailApi(with);
+    }
+
+    @Override
+    public Observable<AnimesResourceBean> animesResourceApi(String id, String info) {
+        return baseProvidesRetrofit().create(Api.class).animesResourceApi(id, info);
+    }
+
+    @Override
+    public Observable<AllAnimesBean> allAnimesApi(String paginate) {
+        return baseProvidesRetrofit().create(Api.class).allAnimesApi(paginate);
+    }
+
+    @Override
+    public Observable<TestBean> animesTimeLineApi() {
+        return baseProvidesRetrofit().create(Api.class).animesTimeLineApi();
+    }
+
+    @Override
+    public Observable<TestBean> animesRecentlyUpdatedApi() {
+        return baseProvidesRetrofit().create(Api.class).animesRecentlyUpdatedApi();
+    }
+
+    @Override
+    public Observable<TestBean> animesTagsApi(String type) {
+        return baseProvidesRetrofit().create(Api.class).animesTagsApi(type);
     }
 }

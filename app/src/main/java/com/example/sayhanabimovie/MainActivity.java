@@ -91,7 +91,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            new GetAnimeDetailPresenter().getAnimeDetail();
+//            new GetAnimeDetailPresenter().getAnimeDetail();
+            new GetAnimeDetailPresenter().TestApi();
         }
 
         return super.onOptionsItemSelected(item);
