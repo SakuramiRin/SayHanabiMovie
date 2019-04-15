@@ -8,7 +8,6 @@
 
 package com.example.sayhanabimovie.base;
 
-import android.content.Context;
 import android.text.TextUtils;
 
 import com.example.sayhanabimovie.api.Api;
@@ -18,13 +17,11 @@ import com.example.sayhanabimovie.bean.AnimesInfoBean;
 import com.example.sayhanabimovie.bean.AnimesResourceBean;
 import com.example.sayhanabimovie.bean.TestBean;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import io.reactivex.Observable;
-import okhttp3.Cache;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -41,6 +38,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ApiModule implements Api {
 
+    //HttpUrl
     private HttpUrl httpUrl() {
         return new HttpUrl.Builder()
                 .scheme("http")
@@ -48,6 +46,7 @@ public class ApiModule implements Api {
                 .build();
     }
 
+    //
     public Interceptor providesInterceptor() {
         return new Interceptor() {
             @NonNull
@@ -68,11 +67,6 @@ public class ApiModule implements Api {
             }
         };
     }
-
-    public Cache providesCache(Context context) { File httpCacheFile = context.getExternalCacheDir().getAbsoluteFile();
-        return new Cache(httpCacheFile, 1024 * 10 * 1024);
-    }
-
 
     public OkHttpClient providesOkHttpClient(Interceptor interceptor) {
         return new OkHttpClient.Builder()

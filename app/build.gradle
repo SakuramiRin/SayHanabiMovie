@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId "com.example.sayhanabimovie"
         multiDexEnabled true
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -73,6 +73,19 @@ dependencies {
     //观察模式
     implementation "io.reactivex.rxjava2:rxjava:2.x.y"
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+    //日志
+    implementation 'com.orhanobut:logger:2.2.0'
+
+    //數據庫
+    implementation 'org.litepal.android:java:3.0.0'
+
+    // adapter
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.45-androidx'
+
+    // 依賴注入
+//    implementation 'com.jakewharton:butterknife:10.1.0'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
 
     testImplementation 'junit:junit:4.12'

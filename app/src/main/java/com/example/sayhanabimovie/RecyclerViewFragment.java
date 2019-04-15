@@ -9,10 +9,15 @@
 package com.example.sayhanabimovie;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.sayhanabimovie.base.BaseAdapter;
+import com.example.sayhanabimovie.bean.AnimesInfoBean;
 import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 
 import java.util.ArrayList;
@@ -55,6 +60,14 @@ public class RecyclerViewFragment extends Fragment {
             items.add(new Object());
         }
 
+        final List<AnimesInfoBean> list = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            AnimesInfoBean item = new AnimesInfoBean();
+            item.setName("123");
+            list.add(item);
+        }
+
+
 
         //setup materialviewpager
 
@@ -67,6 +80,14 @@ public class RecyclerViewFragment extends Fragment {
 
         //Use this now
         mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
-        mRecyclerView.setAdapter(new TestRecyclerViewAdapter(items));
+        BaseAdapter adapter = new BaseAdapter(R.layout.list_item_card_big, list);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Toast.makeText(getActivity(), "d", Toast.LENGTH_SHORT).show();
+                Log.d("123", "onItemChildClick: ");
+            }
+        });
+        mRecyclerView.setAdapter(adapter);
     }
 }

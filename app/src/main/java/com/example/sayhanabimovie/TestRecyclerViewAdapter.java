@@ -15,7 +15,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import java.io.File;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,7 +58,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             case TYPE_HEADER: {
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.list_item_card_big, parent, false);
-                ImageView imageView = view.findViewById(R.id.card_imageView);
+                ImageView imageView = view.findViewById(R.id.card_image_view);
 
                 int resource = R.drawable.bg1;
                 Glide.with(view).load(resource).into(imageView);

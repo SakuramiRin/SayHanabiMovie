@@ -12,7 +12,6 @@ import android.util.Log;
 
 import com.example.sayhanabimovie.base.ApiModule;
 import com.example.sayhanabimovie.bean.AnimesDetailBean;
-import com.example.sayhanabimovie.model.GetAnimeDetailModel;
 import com.example.sayhanabimovie.model.interfacemodel.IGetAnimeDetail;
 import com.example.sayhanabimovie.presenter.interfacepresenter.IGetAnimeDetailPresenter;
 
@@ -37,9 +36,9 @@ public class GetAnimeDetailPresenter implements IGetAnimeDetailPresenter {
 
     private IGetAnimeDetail mGetAnimeDetail;
 
-    public GetAnimeDetailPresenter() {
-        mGetAnimeDetail = new GetAnimeDetailModel();
-    }
+//    public GetAnimeDetailPresenter() {
+//        mGetAnimeDetail = new GetAnimeDetailModel();
+//    }
 
     @Override
     public void getAnimeDetail() {

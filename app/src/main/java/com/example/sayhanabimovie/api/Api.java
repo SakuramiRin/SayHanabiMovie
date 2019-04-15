@@ -46,7 +46,7 @@ public interface Api {
      * @param withVideo 是否返回动漫里的视频详情 【可空】
      * @return API
      */
-    @GET("name/{id}/info")
+    @GET("animes/{id}/info")
     Observable<AnimesInfoBean> animesInfoApi(@Path("id") String id, @Query("withVideo") String withVideo);
 
     /**
