@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.sayhanabimovie.R;
+import com.example.sayhanabimovie.bean.AllAnimesBean;
 import com.example.sayhanabimovie.bean.AnimesInfoBean;
 
 import java.util.List;
@@ -21,18 +22,16 @@ import java.util.List;
 /**
  * @author ihotei
  */
-public class BaseAdapter extends BaseQuickAdapter<AnimesInfoBean, BaseViewHolder> {
+public class MainActivityAdapter extends BaseQuickAdapter<AllAnimesBean, BaseViewHolder> {
 
-    public BaseAdapter(int layoutResId, List<AnimesInfoBean> data) {
+    public MainActivityAdapter(int layoutResId, List<AllAnimesBean> data) {
         super(layoutResId, data);
     }
 
-
     @Override
-    protected void convert(BaseViewHolder helper, AnimesInfoBean item) {
-        helper.setText(R.id.card_title, item.getName());
-        Glide.with(mContext)
-                .load(item.getCover())
-                .into((ImageView) helper.getView(R.id.card_image_view));
+    protected void convert(BaseViewHolder helper, AllAnimesBean item) {
+        helper.setText(R.id.card_title, item.getData().get());
     }
+
+
 }

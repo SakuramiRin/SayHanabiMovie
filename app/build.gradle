@@ -65,10 +65,12 @@ dependencies {
 
     //网络请求
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    //网络请求的Gson依赖
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    //网络请求的日志
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 
     //观察模式
     implementation "io.reactivex.rxjava2:rxjava:2.x.y"

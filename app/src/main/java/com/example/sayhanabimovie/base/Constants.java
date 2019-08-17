@@ -13,5 +13,5 @@ package com.example.sayhanabimovie.base;
  * 全局靜態常量類
  */
 public class Constants {
-
+    public static final long EXIT_TIME = 2000;
 }

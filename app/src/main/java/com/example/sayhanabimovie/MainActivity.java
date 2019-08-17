@@ -10,13 +10,14 @@ package com.example.sayhanabimovie;
 
 import android.os.Bundle;
 
+import com.example.sayhanabimovie.bean.AllAnimesBean;
+import com.example.sayhanabimovie.presenter.GetAnimeDetailPresenter;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -25,9 +26,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import static com.example.sayhanabimovie.base.Constants.EXIT_TIME;
+
 
 /**
  * @author SakuramiRin
@@ -36,11 +42,18 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
+    private AllAnimesBean mAllAnimesBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+        // api 和 rxjava测试
+        new GetAnimeDetailPresenter().TestApi();
+        new TestClass().method();
 
         //隐藏系统标题
         setTitle("");
@@ -59,15 +72,17 @@ public class MainActivity extends AppCompatActivity
         //抽屉里的东西
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         //抽屉里的东西被选中监听器
-//        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);
 
 
     }
 
-
+    /**
+     * 返回键逻辑处理
+     */
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             //打开抽屉时按下返回键关闭抽屉栏
             drawer.closeDrawer(GravityCompat.START);
@@ -76,6 +91,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * 右上角设置
+     * @param menu 菜单
+     * @return 是否显示右上角设置选项
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // 右上角设置布局
@@ -83,52 +103,57 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * 右上角设置列表点击事件
+     * @param item 条目
+     * @return 是否触发
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // 右上角布局点击事件
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-//            new GetAnimeDetailPresenter().getAnimeDetail();
-//            new GetAnimeDetailPresenter().TestApi();
-            new TestClass().method();
+            Toast.makeText(this, "点击了设置按钮", Toast.LENGTH_SHORT).show();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+    /**
+     * 抽屉菜单内条目点击事件
+     * @param item 条目
+     * @return 是否触发事件
+     */
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // 抽屉栏中菜单被选中
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.nav_camera) {
-
+            Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_gallery) {
-
+            Toast.makeText(this, "2", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_slideshow) {
-
+            Toast.makeText(this, "3", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_manage) {
-
+            Toast.makeText(this, "4", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_share) {
-
+            Toast.makeText(this, "5", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_send) {
-
+            Toast.makeText(this, "6", Toast.LENGTH_SHORT).show();
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
 
+    /**
+     * 初始化Main整体内容布局
+     */
     private void initMaterDesignHome() {
         //设置actionBar
         MaterialViewPager materialViewPager = findViewById(R.id.materialViewPager);
         Toolbar toolbar = materialViewPager.getToolbar();
-//        toolbar.setNavigationIcon(R.drawable.ic_search_black_24dp);
+
+        // 设置SupportActionBar 从这个类静态方法拿到toolbar
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
@@ -151,7 +176,7 @@ public class MainActivity extends AppCompatActivity
                     case 4:
                         return new Fragment();
                     default:
-                        return new RecyclerViewFragment();
+                        return new RecyclerViewFragment(mAllAnimesBean);
                 }
             }
 
@@ -160,7 +185,7 @@ public class MainActivity extends AppCompatActivity
                 return 3;
             }
 
-            @Nullable
+            @NonNull
             @Override
             public CharSequence getPageTitle(int position) {
                 switch (position) {
@@ -191,5 +216,26 @@ public class MainActivity extends AppCompatActivity
 
         materialViewPager.getViewPager().setOffscreenPageLimit(materialViewPager.getViewPager().getAdapter().getCount());
         materialViewPager.getPagerTitleStrip().setViewPager(materialViewPager.getViewPager());
+    }
+
+
+    /**
+     * 双击换回退出程序
+     * @param keyCode 点击的按钮
+     * @param event 按钮事件
+     * @return 是否触发
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            long secondTime = System.currentTimeMillis();
+            if (secondTime > EXIT_TIME) {
+                Toast.makeText(this, "在按一次退出程序", Toast.LENGTH_SHORT).show();
+                return true;
+            } else {
+                System.exit(0);
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

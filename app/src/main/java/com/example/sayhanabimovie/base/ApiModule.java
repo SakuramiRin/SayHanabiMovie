@@ -38,7 +38,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ApiModule implements Api {
 
-    //HttpUrl
+    /**
+     * HttpUrl
+     * @return HttpUrl服务器
+     */
     private HttpUrl httpUrl() {
         return new HttpUrl.Builder()
                 .scheme("http")
@@ -46,8 +49,11 @@ public class ApiModule implements Api {
                 .build();
     }
 
-    //
-    public Interceptor providesInterceptor() {
+    /**
+     * 提供拦截器
+     * @return 拦截器
+     */
+    private Interceptor providesInterceptor() {
         return new Interceptor() {
             @NonNull
             @Override
@@ -68,7 +74,12 @@ public class ApiModule implements Api {
         };
     }
 
-    public OkHttpClient providesOkHttpClient(Interceptor interceptor) {
+    /**
+     * 提供OkHttp客户端
+     * @param interceptor 拦截器
+     * @return OkHttp客户端
+     */
+    private OkHttpClient providesOkHttpClient(Interceptor interceptor) {
         return new OkHttpClient.Builder()
 //                .cache(cache)
                 .addInterceptor(interceptor)
@@ -77,7 +88,13 @@ public class ApiModule implements Api {
     }
 
 
-    public Retrofit providesRetrofit(OkHttpClient client, HttpUrl httpUrl) {
+    /**
+     * 提供Retrofit
+     * @param client OkHttp客户端
+     * @param httpUrl BaseHttpUrl地址
+     * @return Retrofit
+     */
+    private Retrofit providesRetrofit(OkHttpClient client, HttpUrl httpUrl) {
         return new Retrofit.Builder()
                 .baseUrl(httpUrl)
                 .client(client)
@@ -86,13 +103,17 @@ public class ApiModule implements Api {
                 .build();
     }
 
-    public Retrofit baseProvidesRetrofit() {
+    /**
+     * 返回基本Retrofit
+     * @return Retrofit
+     */
+    private Retrofit baseProvidesRetrofit() {
         return providesRetrofit(providesOkHttpClient(providesInterceptor()), httpUrl());
     }
 
     @Override
-    public Observable<List<AnimesDetailBean>> getAnimeDetailAPI() {
-        return baseProvidesRetrofit().create(Api.class).getAnimeDetailAPI();
+    public Observable<List<AnimesDetailBean>> getAnimeDetailApi() {
+        return baseProvidesRetrofit().create(Api.class).getAnimeDetailApi();
     }
 
     @Override

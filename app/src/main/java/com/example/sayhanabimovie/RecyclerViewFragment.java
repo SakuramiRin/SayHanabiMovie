@@ -16,13 +16,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.sayhanabimovie.base.BaseAdapter;
-import com.example.sayhanabimovie.bean.AnimesInfoBean;
+import com.example.sayhanabimovie.base.MainActivityAdapter;
+import com.example.sayhanabimovie.bean.AllAnimesBean;
 import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -39,33 +37,39 @@ public class RecyclerViewFragment extends Fragment {
 
     RecyclerView mRecyclerView;
 
-    public static RecyclerViewFragment newInstance() {
-        return new RecyclerViewFragment();
+    AllAnimesBean mAllAnimesBean;
+
+    public RecyclerViewFragment(AllAnimesBean allAnimesBean) {
+        mAllAnimesBean = allAnimesBean;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_recyclerview, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         mRecyclerView = view.findViewById(R.id.recyclerView);
 
-        final List<Object> items = new ArrayList<>();
+        mAllAnimesBean.getData();
 
-        //new了10个空数据
-        for (int i = 0; i < ITEM_COUNT; ++i) {
-            items.add(new Object());
-        }
-
-        final List<AnimesInfoBean> list = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            AnimesInfoBean item = new AnimesInfoBean();
-            item.setName("123");
-            list.add(item);
-        }
+//        final List<Object> items = new ArrayList<>();
+//
+//        //new了10个空数据
+//        for (int i = 0; i < ITEM_COUNT; ++i) {
+//            items.add(new Object());
+//        }
+//
+//        final List<AnimesInfoBean> list = new ArrayList<>();
+//        for (int i = 0; i < 20; i++) {
+//            AnimesInfoBean item = new AnimesInfoBean();
+//            item.setName("123");
+//            list.add(item);
+//        }
 
 
 
@@ -80,7 +84,7 @@ public class RecyclerViewFragment extends Fragment {
 
         //Use this now
         mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
-        BaseAdapter adapter = new BaseAdapter(R.layout.list_item_card_big, list);
+        MainActivityAdapter adapter = new MainActivityAdapter(R.layout.list_item_card_big, mAllAnimesBean);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
